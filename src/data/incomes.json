@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Income 1",
+    "payPeriodNetIncome": 1000,
+    "payPeriodsPerYear": 26
+  },
+  {
+    "name": "Income 2",
+    "payPeriodNetIncome": 1500,
+    "payPeriodsPerYear": 24
+  }
+]

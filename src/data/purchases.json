@@ -1,0 +1,30 @@
+[
+  {
+    "date": "10/1/2020",
+    "amount": 20.12,
+    "category": "foodDrink",
+    "subCategory": "groceries",
+    "notes": ""
+  },
+  {
+    "date": "10/5/2020",
+    "amount": 7.5,
+    "category": "subscriptions",
+    "subCategory": "spotify",
+    "notes": ""
+  },
+  {
+    "date": "10/9/2020",
+    "amount": 600,
+    "category": "livingExpenses",
+    "subCategory": "rent",
+    "notes": ""
+  },
+  {
+    "date": "10/11/2020",
+    "amount": 60.83,
+    "category": "social",
+    "subCategory": "dates",
+    "notes": ""
+  }
+]

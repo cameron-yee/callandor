@@ -1,0 +1,47 @@
+[
+  {
+    "category": "foodDrink",
+    "subCategory": "groceries",
+    "monthlyBudget": 100
+  },
+  {
+    "category": "foodDrink",
+    "subCategory": "coffee",
+    "monthlyBudget": 20
+  },
+  {
+    "category": "livingExpenses",
+    "subCategory": "rent",
+    "monthlyBudget": 1159
+  },
+  {
+    "category": "livingExpenses",
+    "subCategory": "cellPhone",
+    "monthlyBudget": 40
+  },
+  {
+    "category": "subscriptions",
+    "subCategory": "gym",
+    "monthlyBudget": 13
+  },
+  {
+    "category": "social",
+    "subCategory": "dates",
+    "monthlyBudget": 113
+  },
+  {
+    "category": "subscriptions",
+    "subCategory": "spotify",
+    "monthlyBudget": 7.5
+  },
+  {
+    "category": "transferOut",
+    "subCategory": "mtSaving",
+    "monthlyBudget": 3414.14
+  },
+  {
+    "category": "transferOut",
+    "subCategory": "giving",
+    "monthlyBudget":  300
+  }
+]
