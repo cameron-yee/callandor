@@ -45,6 +45,7 @@ export type PurchaseFilterType =
   | 'category'
   | 'date'
   | 'subCategory'
+  | ''
 
 export type BudgetFilterType =
   | 'category'

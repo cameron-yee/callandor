@@ -1,31 +1,14 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 
+import { MONTHS, YEARS } from '../constants'
+
 import { useAnnualNetIncome, useBudget, useMonthlyPurchases } from '../hooks'
 
 import Select from '../components/select'
+import YearLook from '../components/year-look'
 
 import { roundTwo } from '../utils'
 
-
-const MONTHS: string[] = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-]
-
-const YEARS: string[] = [
-  '2020',
-  '2021'
-]
 
 const Index = () => {
   const [selectedMonth, setSelectedMonth] = useState<number>(0)
@@ -83,6 +66,11 @@ const Index = () => {
           </p>
           <p>{roundTwo(100 - totalMonthlyFoodDrinkPurchases / totalFoodDrinkBudget * 100)}% remaining</p>
         </div>
+      </div>
+
+      <h2>Year Look</h2>
+      <div>
+        <YearLook year={selectedYear + 2020} />
       </div>
     </div>
   )
