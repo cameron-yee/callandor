@@ -2,6 +2,8 @@ import React, { FormEvent, useEffect, useState } from 'react'
 
 import { useAnnualNetIncome, useBudget, useMonthlyPurchases } from '../hooks'
 
+import Select from '../components/select'
+
 import { roundTwo } from '../utils'
 
 
@@ -51,29 +53,36 @@ const Index = () => {
     <div>
       <h1>{MONTHS[selectedMonth]}, {YEARS[selectedYear]} Dashboard</h1>
 
-      <select onChange={(e: FormEvent) => setSelectedMonth(MONTHS.indexOf((e.target as HTMLSelectElement).value))} value={MONTHS[selectedMonth]}>
-        {MONTHS.map((month) => {
-          return (
-            <option key={`${month.toLowerCase()}`}>{month}</option>
-          )
-        })}
-      </select>
-      <select onChange={(e: FormEvent) => setSelectedYear(YEARS.indexOf((e.target as HTMLSelectElement).value))} value={YEARS[selectedYear]}>
-        {YEARS.map((year) => {
-          return (
-            <option key={`${year.toLowerCase()}`}>{year}</option>
-          )
-        })}
-      </select>
-
+      <h2>Fixed Items</h2>
       <div>
         <p>Annual Net Income: {annualNetIncome}</p>
         <p>Monthly Net Income: {monthlyNetIncome}</p>
         <p>Monthly Budget: {totalBudget}</p>
+      </div>
+
+      <h2>Monthly Items</h2>
+      <div>
+        <Select
+          options={MONTHS}
+          value={MONTHS[selectedMonth]}
+          setValue={(value: string) => setSelectedMonth(MONTHS.indexOf(value))}
+        />
+        <Select
+          options={YEARS}
+          value={YEARS[selectedYear]}
+          setValue={(value: string) => setSelectedYear(YEARS.indexOf(value))}
+        />
+      </div>
+
+      <div>
         <p>Monthly Purchases: {totalMonthlyPurchases}</p>
-        <p>
-          Monthly Food/Drink Purchases: {totalMonthlyFoodDrinkPurchases} out of {totalFoodDrinkBudget}
-        </p>
+        <div>
+          <h3>Food/Drink</h3>
+          <p>
+            Monthly Food/Drink Purchases: ${totalMonthlyFoodDrinkPurchases} out of ${totalFoodDrinkBudget}
+          </p>
+          <p>{roundTwo(100 - totalMonthlyFoodDrinkPurchases / totalFoodDrinkBudget * 100)}% remaining</p>
+        </div>
       </div>
     </div>
   )
