@@ -49,3 +49,7 @@ export type PurchaseFilterType =
 export type BudgetFilterType =
   | 'category'
   | 'subCategory'
+
+export type IncomeFilterType =
+	| 'name'
+

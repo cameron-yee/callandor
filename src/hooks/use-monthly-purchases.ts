@@ -1,4 +1,3 @@
-import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 
 import { Purchase, PurchaseFilterType } from '../types'
@@ -18,8 +17,8 @@ type Data = {
 type MonthlyPurchasesAmountProps = {
   filter?: string,
   filterType?: PurchaseFilterType
-  month: number,
-  year: number
+  month?: number,
+  year?: number
 }
 
 const getMonthlyPurchasesAmount = (
@@ -57,7 +56,7 @@ const getMonthlyPurchasesAmount = (
     return monthlyPurchasesAmount
 }
 
-const MonthlyPurchasesAmount = ({
+const useMonthlyPurchases = ({
   filter,
   filterType,
   month,
@@ -81,10 +80,8 @@ const MonthlyPurchasesAmount = ({
 
   const amount: number = Math.round((getMonthlyPurchasesAmount(data.allPurchasesJson.edges, month, year, filterType, filter) + Number.EPSILON) * 100 / 100)
 
-  return (
-    <React.Fragment>{amount}</React.Fragment>
-  )
+  return amount
 }
 
-export default MonthlyPurchasesAmount
+export default useMonthlyPurchases
 

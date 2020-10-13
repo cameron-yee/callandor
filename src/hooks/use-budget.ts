@@ -1,4 +1,3 @@
-import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 
 import { BudgetItem, BudgetFilterType } from '../types'
@@ -38,7 +37,7 @@ const getMonthlyBudget = (budgetItems: Edge[], filter?: string, filterType?: Bud
   return monthlyBudget
 }
 
-const MonthlyBudget = ({
+const useBudget = ({
   filter,
   filterType,
 }: MonthlyBudgetProps) => {
@@ -58,9 +57,7 @@ const MonthlyBudget = ({
 
   const amount: number = Math.round((getMonthlyBudget(data.allBudgetJson.edges, filter, filterType) + Number.EPSILON) * 100 / 100)
 
-  return (
-    <React.Fragment>{amount}</React.Fragment>
-  )
+  return amount
 }
 
-export default MonthlyBudget
+export default useBudget

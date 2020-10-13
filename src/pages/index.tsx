@@ -1,9 +1,9 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 
-import AnnualNetIncome from '../components/annual-net-income'
-import MonthlyNetIncome from '../components/monthly-net-income'
-import MonthlyBudget from '../components/monthly-budget'
-import MonthlyPurchasesAmount from '../components/monthly-purchases'
+import { useAnnualNetIncome, useBudget, useMonthlyPurchases } from '../hooks'
+
+import { roundTwo } from '../utils'
+
 
 const MONTHS: string[] = [
   'January',
@@ -28,6 +28,15 @@ const YEARS: string[] = [
 const Index = () => {
   const [selectedMonth, setSelectedMonth] = useState<number>(0)
   const [selectedYear, setSelectedYear] = useState<number>(0)
+
+  const annualNetIncome: number = useAnnualNetIncome({})
+  const monthlyNetIncome: number = roundTwo(annualNetIncome / 12)
+
+  const totalBudget: number = useBudget({})
+  const totalFoodDrinkBudget: number = useBudget({filter:'foodDrink', filterType:'category'})
+
+  const totalMonthlyPurchases: number = useMonthlyPurchases({month: selectedMonth + 1, year: selectedYear + 2020})
+  const totalMonthlyFoodDrinkPurchases: number = useMonthlyPurchases({month:selectedMonth + 1, year: selectedYear + 2020, filter:'foodDrink', filterType:'category'})
 
   useEffect(() => {
     const date: Date = new Date()
@@ -58,15 +67,12 @@ const Index = () => {
       </select>
 
       <div>
-        <p>Annual Net Income: <AnnualNetIncome /></p>
-        <p>Monthly Net Income: <MonthlyNetIncome /></p>
-        <p>Monthly Budget: <MonthlyBudget /></p>
-        <p>Monthly Purchases: <MonthlyPurchasesAmount month={selectedMonth + 1} year={selectedYear + 2020} /></p>
+        <p>Annual Net Income: {annualNetIncome}</p>
+        <p>Monthly Net Income: {monthlyNetIncome}</p>
+        <p>Monthly Budget: {totalBudget}</p>
+        <p>Monthly Purchases: {totalMonthlyPurchases}</p>
         <p>
-          Monthly Food/Drink Purchases:&nbsp;
-          <MonthlyPurchasesAmount month={selectedMonth + 1} year={selectedYear + 2020} filter='foodDrink' filterType='category' />
-          &nbsp;out of&nbsp;
-          <MonthlyBudget filter='foodDrink' filterType='category' />
+          Monthly Food/Drink Purchases: {totalMonthlyFoodDrinkPurchases} out of {totalFoodDrinkBudget}
         </p>
       </div>
     </div>
