@@ -4,6 +4,8 @@ import { MONTHS, YEARS } from '../constants'
 
 import { useAnnualNetIncome, useBudget, useMonthlyPurchases } from '../hooks'
 
+import Pace from '../components/pace'
+import Remaining from '../components/remaining'
 import Select from '../components/select'
 import YearLook from '../components/year-look'
 
@@ -75,22 +77,26 @@ const Index = () => {
         <div>
           <h4>Groceries</h4>
           <p>Purchases: ${totalMonthlyGroceriesPurchases} out of ${totalGroceriesBudget}</p>
-          <p>{roundTwo(100 - totalMonthlyGroceriesPurchases / totalGroceriesBudget * 100)}% remaining</p>
-          {/*<Remaining filter='groceries' filterType='foodDrink' />*/}
-          <p>On pace to spend: ${roundTwo(totalMonthlyGroceriesPurchases / currentDay * daysInMonth)}</p>
-          {/*<Pace filter='groceries' filterType='foodDrink' />*/}
+          <Remaining filter='groceries' filterType='subCategory' month={selectedMonth + 1} year={selectedYear + 2020} />
+          {currentMonth === selectedMonth &&
+            <Pace filter='groceries' filterType='subCategory'/>
+          }
         </div>
         <div>
           <h4>Coffee</h4>
           <p>Purchases: ${totalMonthlyCoffeePurchases} out of ${totalCoffeeBudget}</p>
-          <p>{roundTwo(100 - totalMonthlyCoffeePurchases / totalCoffeeBudget * 100)}% remaining</p>
-          <p>On pace to spend: ${roundTwo(totalMonthlyCoffeePurchases / currentDay * daysInMonth)}</p>
+          <Remaining filter='coffee' filterType='subCategory' month={selectedMonth + 1} year={selectedYear + 2020} />
+          {currentMonth === selectedMonth &&
+            <Pace filter='coffee' filterType='subCategory'/>
+          }
         </div>
         <div>
           <h4>Social</h4>
           <p>Purchases: ${totalMonthlySocialPurchases} out of ${totalSocialBudget}</p>
-          <p>{roundTwo(100 - totalMonthlySocialPurchases / totalSocialBudget * 100)}% remaining</p>
-          <p>On pace to spend: ${roundTwo(totalMonthlySocialPurchases / currentDay * daysInMonth)}</p>
+          <Remaining filter='social' filterType='category' month={selectedMonth + 1} year={selectedYear + 2020} />
+          {currentMonth === selectedMonth &&
+            <Pace filter='social' filterType='category'/>
+          }
         </div>
       </div>
 
