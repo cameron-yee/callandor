@@ -2,6 +2,8 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 import { BudgetItem, BudgetFilterType } from '../types'
 
+import { roundTwo } from '../utils'
+
 type Edge = {
   node: BudgetItem
 }
@@ -55,9 +57,11 @@ const useBudget = ({
     }
   `)
 
-  const amount: number = Math.round((getMonthlyBudget(data.allBudgetJson.edges, filter, filterType) + Number.EPSILON) * 100 / 100)
+  if (filterType === '-----') {
+    return roundTwo(getMonthlyBudget(data.allBudgetJson.edges))
+  }
 
-  return amount
+  return roundTwo(getMonthlyBudget(data.allBudgetJson.edges, filter, filterType))
 }
 
 export default useBudget

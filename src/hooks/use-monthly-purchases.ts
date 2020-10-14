@@ -2,6 +2,8 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 import { Purchase, PurchaseFilterType } from '../types'
 
+import { roundTwo } from '../utils'
+
 type Edge = {
   node: Purchase
 }
@@ -78,9 +80,11 @@ const useMonthlyPurchases = ({
     }
   `)
 
-  const amount: number = Math.round((getMonthlyPurchasesAmount(data.allPurchasesJson.edges, month, year, filterType, filter) + Number.EPSILON) * 100 / 100)
+  if (filterType === '-----') {
+    return roundTwo(getMonthlyPurchasesAmount(data.allPurchasesJson.edges, month, year))
+  }
 
-  return amount
+  return roundTwo(getMonthlyPurchasesAmount(data.allPurchasesJson.edges, month, year, filterType, filter))
 }
 
 export default useMonthlyPurchases
