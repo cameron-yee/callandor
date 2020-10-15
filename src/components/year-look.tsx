@@ -37,38 +37,41 @@ const YearLook = ({ year }: { year: number }) => {
   }, [filterType])
 
   return (
-    <div>
-      <Select
-        value={filterType}
-        setValue={setFilterType}
-        options={['category', 'subCategory', '-----']}
-      />
-      <Select
-        value={filter}
-        setValue={setFilter}
-        options={
-          filterType === 'category'
-            ? CATEGORIES
-            : filterType === 'subCategory'
-              ? SUB_CATEGORIES
-              : []
-        }
-      />
+    <React.Fragment>
+      <h2>{year} Look (+/- Budget)</h2>
       <div>
-        <div>January: {budget - monthOnePurchases}</div>
-        <div>February: {budget - monthTwoPurchases}</div>
-        <div>March: {budget - monthThreePurchases}</div>
-        <div>April: {budget - monthFourPurchases}</div>
-        <div>May: {budget - monthFivePurchases}</div>
-        <div>June: {budget - monthSixPurchases}</div>
-        <div>July: {budget - monthSevenPurchases}</div>
-        <div>August: {budget - monthEightPurchases}</div>
-        <div>September: {budget - monthNinePurchases}</div>
-        <div>October: {budget - monthTenPurchases}</div>
-        <div>November: {budget - monthElevenPurchases}</div>
-        <div>December: {budget - monthTwelvePurchases}</div>
+        <Select
+          value={filterType}
+          setValue={setFilterType}
+          options={['category', 'subCategory', '-----']}
+        />
+        <Select
+          value={filter}
+          setValue={setFilter}
+          options={
+            filterType === 'category'
+              ? CATEGORIES
+              : filterType === 'subCategory'
+                ? SUB_CATEGORIES
+                : []
+          }
+        />
+        <div>
+          <div>January: {budget - monthOnePurchases}</div>
+          <div>February: {budget - monthTwoPurchases}</div>
+          <div>March: {budget - monthThreePurchases}</div>
+          <div>April: {budget - monthFourPurchases}</div>
+          <div>May: {budget - monthFivePurchases}</div>
+          <div>June: {budget - monthSixPurchases}</div>
+          <div>July: {budget - monthSevenPurchases}</div>
+          <div>August: {budget - monthEightPurchases}</div>
+          <div>September: {budget - monthNinePurchases}</div>
+          <div>October: {budget - monthTenPurchases}</div>
+          <div>November: {budget - monthElevenPurchases}</div>
+          <div>December: {budget - monthTwelvePurchases}</div>
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   )
 }
 
