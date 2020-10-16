@@ -2,8 +2,6 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 import { Income, IncomeFilterType } from '../types'
 
-import { roundTwo } from '../utils'
-
 type Edge = {
   node: Income
 }
@@ -57,7 +55,7 @@ const useAnnualNetIncome = ({filter, filterType}: UseIncomeProps) => {
     }
   `)
 
-  const annualNetIncome: number = roundTwo(getIncome(data.allIncomesJson.edges, filter, filterType))
+  const annualNetIncome: number = getIncome(data.allIncomesJson.edges, filter, filterType)
 
   return annualNetIncome
 }

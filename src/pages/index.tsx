@@ -1,15 +1,18 @@
 import React from 'react'
 
 import Dashboard from '../components/dashboard'
+import Layout from '../components/layout'
 
 const Index = () => {
   return (
-    <Dashboard
-      categories={['social']}
-      fixedItems={true}
-      subCategories={['groceries', 'coffee']}
-      yearLook={true}
-    />
+    <Layout>
+      <Dashboard
+        categories={['social']}
+        fixedItems={true}
+        subCategories={['groceries', 'coffee']}
+        yearLook={true}
+      />
+    </Layout>
   )
 }
 

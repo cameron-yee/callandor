@@ -44,8 +44,8 @@ const Dashboard = ({
   }, [])
 
   return (
-    <div>
-      <div>
+    <div className="flex flex-wrap">
+      <div className="flex w-full">
         <Select
           options={MONTHS}
           value={MONTHS[selectedMonth]}
@@ -58,24 +58,26 @@ const Dashboard = ({
         />
       </div>
 
-      <h1>{MONTHS[selectedMonth]}, {YEARS[selectedYear]} Dashboard</h1>
+      <h1 className="my-3 text-2xl tracking-widest font-main font-semibold text-gray-200">{MONTHS[selectedMonth]}, {YEARS[selectedYear]} Dashboard</h1>
 
       {fixedItems &&
-        <React.Fragment>
-          <h2>Fixed Items</h2>
+        <div className="w-full">
+          <h2 className="my-3 text-2xl tracking-widest font-main font-semibold text-gray-200">Fixed Items</h2>
           <div>
-            <p>Annual Net Income: {annualNetIncome.toFixed(2)}</p>
-            <p>Monthly Net Income: {monthlyNetIncome.toFixed(2)}</p>
-            <p>Monthly Budget: {totalBudget.toFixed(2)}</p>
+            <p className="text-base tracking-wider font-main text-gray-200">Annual Net Income: {annualNetIncome.toFixed(2)}</p>
+            <p className="text-base tracking-wider font-main text-gray-200">Monthly Net Income: {monthlyNetIncome.toFixed(2)}</p>
+            <p className="text-base tracking-wider font-main text-gray-200">Monthly Budget: {totalBudget.toFixed(2)}</p>
           </div>
 
-          <h2>{MONTHS[selectedMonth]} Items</h2>
-        </React.Fragment>
+        </div>
       }
-      <p>Total Purchases: {totalMonthlyPurchases.toFixed(2)}</p>
+      <div className="w-full">
+        <h2 className="my-3 text-2xl tracking-widest font-main font-semibold text-gray-200">{MONTHS[selectedMonth]} Items</h2>
+        <p className="text-base tracking-wider font-secondary text-gray-200">Total Purchases: {totalMonthlyPurchases.toFixed(2)}</p>
+      </div>
       {(categories || subCategories) &&
-        <div>
-          <h3>Categories/Sub-Categories</h3>
+        <div className="w-full">
+          <h3 className="my-3 text-xl tracking-widest font-main font-semibold text-gray-200">Categories/Sub-Categories</h3>
           {categories &&
             categories.map((category: Category, index: number) => {
               return (

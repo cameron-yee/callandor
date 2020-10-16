@@ -6,6 +6,8 @@ module.exports = {
       options: {
         path: `./src/data/`
       }
-    }
+    },
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-offline`
   ]
 }

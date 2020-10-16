@@ -1,38 +1,40 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "callandor",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "description": "Static customizable budgeting dashboard",
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
-    "develop": "gatsby develop",
+    "develop": "npm run build:tailwind && gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "run-p start:**",
     "start:app": "yarn develop",
-    "start:lambda": "netlify-lambda serve src/functions",
-    "build": "gatsby build && netlify-lambda build src/functions",
-    "build:app": "gatsby build",
-    "build:lambda": "netlify-lambda build src/functions"
+    "build": "run-s build:**",
+    "build:tailwind": "postcss src/styles/base.css -o src/styles/tailwind.css",
+    "build:gatsby": "gatsby build"
   },
   "dependencies": {
-    "faunadb": "^3.0.1",
+    "fontsource-turret-road": "^3.0.3",
+    "fontsource-ubuntu": "^3.0.9",
     "gatsby": "^2.24.67",
+    "gatsby-plugin-offline": "^3.2.33",
+    "gatsby-plugin-postcss": "^3.0.3",
     "gatsby-source-filesystem": "^2.3.34",
     "gatsby-transformer-json": "^2.4.14",
+    "postcss": "^8.1.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "tailwindcss": "^1.9.3"
   },
   "devDependencies": {
-    "http-proxy-middleware": "^1.0.5",
-    "netlify-lambda": "^2.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "2.1.2"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
+    "url": "https://github.com/cameron-yee/callandor"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/cameron-yee/callandor/issues"
   }
 }
