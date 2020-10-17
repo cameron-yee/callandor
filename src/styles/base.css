@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
+
+p {
+  @apply text-base tracking-wider font-secondary text-gray-200 
+}
+
+h1 {
+  @apply my-3 text-2xl tracking-widest font-main font-semibold text-gray-200
+}
+
+h2 {
+  @apply my-3 text-2xl tracking-widest font-main font-semibold text-gray-200
+}
+
+h3 {
+  @apply  my-3 text-xl tracking-widest font-main font-semibold text-gray-200
+}
+
 @tailwind utilities;

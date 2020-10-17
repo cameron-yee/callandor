@@ -3,12 +3,30 @@ import React, { useEffect, useState } from 'react'
 import { MONTHS, YEARS } from '../constants'
 import { Category, SubCategory } from '../types'
 import { useAnnualNetIncome, useBudget, useMonthlyPurchases } from '../hooks'
+import { formatClassList } from '../utils'
 
 import DashboardCategory from './dashboard-category'
 import Select from './select'
 import YearLook from './year-look'
 
-{/*<Dashboard categories={['social']} subCategories={['groceries', 'coffee']} yearLook={true} fixeditems={true} />*/}
+const FULL: string = `
+  w-full
+`
+
+const BOLD: string = `
+  font-bold
+`
+
+const CONTAINER: string = `
+  ${FULL}
+  flex
+`
+
+const WRAPPER: string = `
+  flex
+  flex-wrap
+`
+
 type DashboardProps = {
   categories?: Category[],
   subCategories?: SubCategory[],
@@ -38,14 +56,19 @@ const Dashboard = ({
   const currentMonth: number = date.getMonth()
   const currentYear: number = fullYear - 2020
 
+  const formattedBold: string = formatClassList(BOLD)
+  const formattedContainer: string = formatClassList(CONTAINER)
+  const formattedFull: string = formatClassList(FULL)
+  const formattedWrapper: string = formatClassList(WRAPPER)
+
   useEffect(() => {
     setSelectedMonth(currentMonth)
     setSelectedYear(currentYear)
   }, [])
 
   return (
-    <div className="flex flex-wrap">
-      <div className="flex w-full">
+    <div className={formattedWrapper}>
+      <div className={formattedContainer}>
         <Select
           options={MONTHS}
           value={MONTHS[selectedMonth]}
@@ -58,26 +81,26 @@ const Dashboard = ({
         />
       </div>
 
-      <h1 className="my-3 text-2xl tracking-widest font-main font-semibold text-gray-200">{MONTHS[selectedMonth]}, {YEARS[selectedYear]} Dashboard</h1>
+      <h1>{MONTHS[selectedMonth]}, {YEARS[selectedYear]} Dashboard</h1>
 
       {fixedItems &&
-        <div className="w-full">
-          <h2 className="my-3 text-2xl tracking-widest font-main font-semibold text-gray-200">Fixed Items</h2>
+        <div className={formattedFull}>
+          <h2>Fixed Items</h2>
           <div>
-            <p className="text-base tracking-wider font-main text-gray-200">Annual Net Income: {annualNetIncome.toFixed(2)}</p>
-            <p className="text-base tracking-wider font-main text-gray-200">Monthly Net Income: {monthlyNetIncome.toFixed(2)}</p>
-            <p className="text-base tracking-wider font-main text-gray-200">Monthly Budget: {totalBudget.toFixed(2)}</p>
+            <p>Annual Net Income: <span className={formattedBold}>${annualNetIncome.toFixed(2)}</span></p>
+            <p>Monthly Net Income: <span className={formattedBold}>${monthlyNetIncome.toFixed(2)}</span></p>
+            <p>Monthly Budget: <span className={formattedBold}>${totalBudget.toFixed(2)}</span></p>
           </div>
 
         </div>
       }
-      <div className="w-full">
-        <h2 className="my-3 text-2xl tracking-widest font-main font-semibold text-gray-200">{MONTHS[selectedMonth]} Items</h2>
-        <p className="text-base tracking-wider font-secondary text-gray-200">Total Purchases: {totalMonthlyPurchases.toFixed(2)}</p>
+      <div className={formattedFull}>
+        <h2>{MONTHS[selectedMonth]} Items</h2>
+        <p>Total Purchases: <span className={formattedBold}>${totalMonthlyPurchases.toFixed(2)}</span></p>
       </div>
       {(categories || subCategories) &&
-        <div className="w-full">
-          <h3 className="my-3 text-xl tracking-widest font-main font-semibold text-gray-200">Categories/Sub-Categories</h3>
+        <div className={formattedFull}>
+          <h3>Categories/Sub-Categories</h3>
           {categories &&
             categories.map((category: Category, index: number) => {
               return (

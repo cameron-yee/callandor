@@ -8,7 +8,7 @@ import { formatClassList } from '../utils'
 
 import Select from './select'
 
-import { BudgetFilterType, PurchaseFilterType } from '../types'
+import { CategoryFilterType } from '../types'
 
 
 const TEXT: string = `
@@ -33,7 +33,7 @@ const NEGATIVE: string = `
 
 const YearLook = ({ year }: { year: number }) => {
   const [filter, setFilter] = useState<string>('')
-  const [filterType, setFilterType] = useState<BudgetFilterType | PurchaseFilterType>('-----')
+  const [filterType, setFilterType] = useState<CategoryFilterType>('-----')
 
   const monthOnePurchases: number = useMonthlyPurchases({ month: 1, year: year, filter: filter, filterType: filterType})
   const monthTwoPurchases: number = useMonthlyPurchases({ month: 2, year: year, filter: filter, filterType: filterType})
@@ -48,7 +48,7 @@ const YearLook = ({ year }: { year: number }) => {
   const monthElevenPurchases: number = useMonthlyPurchases({ month: 11, year: year, filter: filter, filterType: filterType})
   const monthTwelvePurchases: number = useMonthlyPurchases({ month: 12, year: year, filter: filter, filterType: filterType})
 
-  const budget: number = useBudget({filter: filter, filterType: (filterType as BudgetFilterType)})
+  const budget: number = useBudget({filter: filter, filterType: filterType})
 
   const monthOneNet: number = budget - monthOnePurchases
   const monthTwoNet: number = budget - monthTwoPurchases
@@ -96,18 +96,18 @@ const YearLook = ({ year }: { year: number }) => {
           }
         />
         <div>
-          <div className={formattedLabel}>January: <span className={monthOneNet >= 0 ? formattedPositive : formattedNegative}>{monthOneNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>February: <span className={monthTwoNet >= 0 ? formattedPositive : formattedNegative}>{monthTwoNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>March: <span className={monthThreeNet >= 0 ? formattedPositive : formattedNegative}>{monthThreeNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>April: <span className={monthFourNet >= 0 ? formattedPositive : formattedNegative}>{monthFourNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>May: <span className={monthFiveNet >= 0 ? formattedPositive : formattedNegative}>{monthFiveNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>June: <span className={monthSixNet >= 0 ? formattedPositive : formattedNegative}>{monthSixNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>July: <span className={monthSevenNet >= 0 ? formattedPositive : formattedNegative}>{monthSevenNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>August: <span className={monthEightNet >= 0 ? formattedPositive : formattedNegative}>{monthEightNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>September: <span className={monthNineNet >= 0 ? formattedPositive : formattedNegative}>{monthNineNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>October: <span className={monthTenNet >= 0 ? formattedPositive : formattedNegative}>{monthTenNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>November: <span className={monthElevenNet >= 0 ? formattedPositive : formattedNegative}>{monthElevenNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>December: <span className={monthTwelveNet >= 0 ? formattedPositive : formattedNegative}>{monthTwelveNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>January: <span className={monthOneNet >= 0 ? formattedPositive : formattedNegative}>${monthOneNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>February: <span className={monthTwoNet >= 0 ? formattedPositive : formattedNegative}>${monthTwoNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>March: <span className={monthThreeNet >= 0 ? formattedPositive : formattedNegative}>${monthThreeNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>April: <span className={monthFourNet >= 0 ? formattedPositive : formattedNegative}>${monthFourNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>May: <span className={monthFiveNet >= 0 ? formattedPositive : formattedNegative}>${monthFiveNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>June: <span className={monthSixNet >= 0 ? formattedPositive : formattedNegative}>${monthSixNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>July: <span className={monthSevenNet >= 0 ? formattedPositive : formattedNegative}>${monthSevenNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>August: <span className={monthEightNet >= 0 ? formattedPositive : formattedNegative}>${monthEightNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>September: <span className={monthNineNet >= 0 ? formattedPositive : formattedNegative}>${monthNineNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>October: <span className={monthTenNet >= 0 ? formattedPositive : formattedNegative}>${monthTenNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>November: <span className={monthElevenNet >= 0 ? formattedPositive : formattedNegative}>${monthElevenNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>December: <span className={monthTwelveNet >= 0 ? formattedPositive : formattedNegative}>${monthTwelveNet.toFixed(2)}</span></div>
         </div>
       </div>
     </div>

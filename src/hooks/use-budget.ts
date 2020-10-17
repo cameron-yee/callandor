@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-import { BudgetItem, BudgetFilterType } from '../types'
+import { BudgetItem, CategoryFilterType } from '../types'
 
 
 type Edge = {
@@ -17,11 +17,11 @@ type Data = {
 
 type MonthlyBudgetProps = {
   filter?: string,
-  filterType?: BudgetFilterType
+  filterType?: CategoryFilterType
 }
 
 
-const getMonthlyBudget = (budgetItems: Edge[], filter?: string, filterType?: BudgetFilterType): number => {
+const getMonthlyBudget = (budgetItems: Edge[], filter?: string, filterType?: CategoryFilterType): number => {
   let monthlyBudget: number = 0
 
   for (let i: number = 0; i < budgetItems.length; i++) {
