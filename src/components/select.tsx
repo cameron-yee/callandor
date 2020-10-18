@@ -10,6 +10,8 @@ const Select = ({
   setValue,
   value
 }: SelectProps) => {
+  console.log(options)
+
   return (
     <select onChange={(e: FormEvent) => setValue((e.target as HTMLSelectElement).value)} value={value}>
       {options.map((option: string) => {

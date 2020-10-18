@@ -1,26 +1,60 @@
-export const CATEGORIES: string[] = [
-  'foodDrink',
-  'gifts',
-  'income',
-  'livingExpenses',
-  'medical',
-  'social',
-  'subscriptions',
-  'transferIn',
-  'transferOut',
-  'travel'
-]
+import { Category } from './types'
 
-export const SUB_CATEGORIES: string[] = [
-  'coffee',
-  'dates',
-  'gas',
-  'giving',
-  'groceries',
-  'interest',
-  'monthlyBills',
-  'phone',
-  'savings'
+export const CATEGORIES: Category[] = [
+  {
+    name: 'foodDrink',
+    subCategories: [
+      { name: 'coffee' },
+      { name: 'groceries' }
+    ]
+  },
+  {
+    name: 'gifts',
+    subCategories: []
+  },
+  {
+    name: 'income',
+    subCategories: []
+  },
+  {
+    name: 'livingExpenses',
+    subCategories: [
+      { name: 'gas' },
+      { name: 'monthlyBills' },
+      { name: 'phone' }
+    ]
+  },
+  {
+    name: 'medical',
+    subCategories: []
+  },
+  {
+    name: 'social',
+    subCategories: [
+      { name: 'gas' }
+    ]
+  },
+  {
+    name: 'subscriptions',
+    subCategories: []
+  },
+  {
+    name: 'transferIn',
+    subCategories: [
+      { name: 'interest' }
+    ]
+  },
+  {
+    name: 'transferOut',
+    subCategories: [
+      { name: 'savings' },
+      { name: 'giving' }
+    ]
+  },
+  {
+    name: 'travel',
+    subCategories: []
+  }
 ]
 
 export const MONTHS: string[] = [

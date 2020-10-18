@@ -1,25 +1,11 @@
-export type Category =
-  | 'foodDrink'
-  | 'gifts'
-  | 'income'
-  | 'livingExpenses'
-  | 'medical'
-  | 'social'
-  | 'subscriptions'
-  | 'transferIn'
-  | 'transferOut'
-  | 'travel'
+export type SubCategory = {
+  name: string
+}
 
-export type SubCategory =
-  | 'coffee'
-  | 'dates'
-  | 'gas'
-  | 'giving'
-  | 'groceries'
-  | 'interest'
-  | 'monthlyBills'
-  | 'phone'
-  | 'savings'
+export type Category = {
+  name: string,
+  subCategories: SubCategory[]
+}
 
 export type Purchase = {
   date: string,

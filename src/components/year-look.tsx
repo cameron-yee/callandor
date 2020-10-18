@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 
 import { useBudget, useMonthlyPurchases } from '../hooks'
 
-import { CATEGORIES, SUB_CATEGORIES } from '../constants'
+import { CATEGORIES } from '../constants'
 
 import { formatClassList } from '../utils'
 
 import Select from './select'
 
-import { CategoryFilterType } from '../types'
+import { Category, CategoryFilterType, SubCategory } from '../types'
 
 
 const TEXT: string = `
@@ -32,8 +32,11 @@ const NEGATIVE: string = `
 `
 
 const YearLook = ({ year }: { year: number }) => {
-  const [filter, setFilter] = useState<string>('')
+  const [filter, setFilter] = useState<string>()
   const [filterType, setFilterType] = useState<CategoryFilterType>('-----')
+  const [selectedCategory, setSelectedCategory] = useState<string>('-----')
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('-----')
+  const [subCategories, setSubCategories] = useState<string[]>(['-----'])
 
   const monthOnePurchases: number = useMonthlyPurchases({ month: 1, year: year, filter: filter, filterType: filterType})
   const monthTwoPurchases: number = useMonthlyPurchases({ month: 2, year: year, filter: filter, filterType: filterType})
@@ -67,32 +70,58 @@ const YearLook = ({ year }: { year: number }) => {
   const formattedPositive: string = formatClassList(POSITIVE)
   const formattedLabel: string = formatClassList(LABEL)
 
+
   useEffect(() => {
-    setFilter(filterType === 'category'
-      ? CATEGORIES[0]
-      : filterType === 'subCategory'
-        ? SUB_CATEGORIES[0]
-        : '-----')
-  }, [filterType])
+    if (selectedCategory === '-----' && selectedSubCategory === '-----') {
+      setFilterType('-----')
+      setFilter('')
+      return
+    }
+
+    if (selectedCategory !== '-----' && selectedSubCategory !== '-----') {
+      setFilterType('subCategory')
+      setFilter(selectedSubCategory)
+      return
+    }
+
+    setFilterType('category')
+    setFilter(selectedCategory)
+  }, [selectedCategory, selectedSubCategory])
+
+  useEffect(() => {
+    if (selectedCategory === '-----') {
+      setSubCategories(['-----'])
+      return
+    }
+
+    const subs: string[] = []
+
+    for (let i = 0; i < CATEGORIES.length; i++) {
+      if (CATEGORIES[i].name === selectedCategory) {
+        for (let x = 0; x < CATEGORIES[i].subCategories.length; x++) {
+          subs.push(CATEGORIES[i].subCategories[x].name)
+        }
+      }
+    }
+    setSubCategories([...subs, '-----'])
+  }, [selectedCategory])
 
   return (
     <div className='w-full'>
       <h2 className="my-3 text-2xl tracking-widest font-main font-semibold text-gray-200">{year} Look (+/- Budget)</h2>
       <div>
         <Select
-          value={filterType}
-          setValue={setFilterType}
-          options={['category', 'subCategory', '-----']}
+          value={selectedCategory}
+          setValue={setSelectedCategory}
+          options={[...CATEGORIES.map((category: Category) => category.name), '-----']}
         />
         <Select
-          value={filter}
-          setValue={setFilter}
+          value={selectedSubCategory}
+          setValue={setSelectedSubCategory}
           options={
-            filterType === 'category'
-              ? CATEGORIES
-              : filterType === 'subCategory'
-                ? SUB_CATEGORIES
-                : []
+            selectedCategory === '-----'
+              ? ['-----']
+              : subCategories
           }
         />
         <div>
