@@ -1,7 +1,7 @@
 [
   {
     "date": "10/1/2020",
-    "amount": 20.12,
+    "amount": 85.12,
     "category": "foodDrink",
     "subCategory": "groceries",
     "notes": ""
@@ -25,6 +25,13 @@
     "amount": 60.83,
     "category": "social",
     "subCategory": "dates",
+    "notes": ""
+  },
+  {
+    "date": "10/11/2020",
+    "amount": 21.00,
+    "category": "foodDrink",
+    "subCategory": "coffee",
     "notes": ""
   }
 ]

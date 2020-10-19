@@ -1,25 +1,45 @@
 import React, { useEffect, useState } from 'react'
 
 import { MONTHS, YEARS } from '../constants'
-import { Category, SubCategory } from '../types'
-import { useAnnualNetIncome, useBudget, useMonthlyPurchases } from '../hooks'
 import { formatClassList } from '../utils'
 
 import DashboardCategory from './dashboard-category'
+import FixedItems from './fixed-items'
+import Purchases from './purchases'
+import Remaining from './remaining'
 import Select from './select'
 import YearLook from './year-look'
 
-const FULL: string = `
+
+const ITEM: string = `
+  bg-gray-900
+  mt-3
+  p-3
+  rounded
+  shadow
   w-full
 `
 
-const BOLD: string = `
-  font-bold
+const CONTAINER: string = `
+  flex
+  mt-3
+  w-full
 `
 
-const CONTAINER: string = `
-  ${FULL}
-  flex
+const ROUNDED_L: string = `
+  rounded-l
+`
+
+const ROUNDED_R: string = `
+  rounded-r
+`
+
+const SEPARATOR: string = `
+  border-pink-400
+  border-t-2
+  mt-5
+  mb-3
+  w-full
 `
 
 const WRAPPER: string = `
@@ -28,8 +48,8 @@ const WRAPPER: string = `
 `
 
 type DashboardProps = {
-  categories?: Category[],
-  subCategories?: SubCategory[],
+  categories?: string[],
+  subCategories?: string[],
   yearLook?: boolean,
   fixedItems?: boolean
 }
@@ -43,23 +63,19 @@ const Dashboard = ({
   const [selectedMonth, setSelectedMonth] = useState<number>(0)
   const [selectedYear, setSelectedYear] = useState<number>(0)
 
-  const annualNetIncome: number = useAnnualNetIncome({})
-  const monthlyNetIncome: number = annualNetIncome / 12
-
-  const totalBudget: number = useBudget({})
-
-  const totalMonthlyPurchases: number = useMonthlyPurchases({month: selectedMonth + 1, year: selectedYear + 2020})
-
   const date: Date = new Date()
   const fullYear: number = date.getFullYear()
 
   const currentMonth: number = date.getMonth()
   const currentYear: number = fullYear - 2020
 
-  const formattedBold: string = formatClassList(BOLD)
   const formattedContainer: string = formatClassList(CONTAINER)
-  const formattedFull: string = formatClassList(FULL)
+  const formattedItem: string = formatClassList(ITEM)
+  const formattedRoundedL: string = formatClassList(ROUNDED_L)
+  const formattedRoundedR: string = formatClassList(ROUNDED_R)
+  const formattedSeparator: string = formatClassList(SEPARATOR)
   const formattedWrapper: string = formatClassList(WRAPPER)
+
 
   useEffect(() => {
     setSelectedMonth(currentMonth)
@@ -68,45 +84,42 @@ const Dashboard = ({
 
   return (
     <div className={formattedWrapper}>
+      <h1>{MONTHS[selectedMonth]}, {YEARS[selectedYear]} Dashboard</h1>
+
       <div className={formattedContainer}>
         <Select
+          className={formattedRoundedL}
           options={MONTHS}
           value={MONTHS[selectedMonth]}
           setValue={(value: string) => setSelectedMonth(MONTHS.indexOf(value))}
         />
         <Select
+          className={formattedRoundedR}
           options={YEARS}
           value={YEARS[selectedYear]}
           setValue={(value: string) => setSelectedYear(YEARS.indexOf(value))}
         />
       </div>
 
-      <h1>{MONTHS[selectedMonth]}, {YEARS[selectedYear]} Dashboard</h1>
+      <div className={formattedSeparator} />
 
       {fixedItems &&
-        <div className={formattedFull}>
-          <h2>Fixed Items</h2>
-          <div>
-            <p>Annual Net Income: <span className={formattedBold}>${annualNetIncome.toFixed(2)}</span></p>
-            <p>Monthly Net Income: <span className={formattedBold}>${monthlyNetIncome.toFixed(2)}</span></p>
-            <p>Monthly Budget: <span className={formattedBold}>${totalBudget.toFixed(2)}</span></p>
-          </div>
-
-        </div>
+        <FixedItems />
       }
-      <div className={formattedFull}>
+      <div className={formattedItem}>
         <h2>{MONTHS[selectedMonth]} Items</h2>
-        <p>Total Purchases: <span className={formattedBold}>${totalMonthlyPurchases.toFixed(2)}</span></p>
+        <Purchases month={selectedMonth + 1} year={selectedYear + 2020} />
+        <Remaining month={selectedMonth + 1} year={selectedYear + 2020} />
       </div>
       {(categories || subCategories) &&
-        <div className={formattedFull}>
-          <h3>Categories/Sub-Categories</h3>
+        <div className={formattedItem}>
+          <h2>Categories/Sub-Categories</h2>
           {categories &&
-            categories.map((category: Category, index: number) => {
+            categories.map((name: string, index: number) => {
               return (
                 <DashboardCategory
                   key={`category-${index}`}
-                  filter={category}
+                  filter={name}
                   filterType='category'
                   month={selectedMonth + 1}
                   year={selectedYear + 2020}
@@ -115,11 +128,11 @@ const Dashboard = ({
             })
           }
           {subCategories &&
-            subCategories.map((subCategory: SubCategory, index: number) => {
+            subCategories.map((name: string, index: number) => {
               return (
                 <DashboardCategory
                   key={`sub-category-${index}`}
-                  filter={subCategory}
+                  filter={name}
                   filterType='subCategory'
                   month={selectedMonth + 1}
                   year={selectedYear + 2020}
@@ -130,7 +143,9 @@ const Dashboard = ({
         </div>
       }
       {yearLook &&
-        <YearLook year={selectedYear + 2020} />
+        <div className={formattedItem}>
+          <YearLook year={selectedYear + 2020} />
+        </div>
       }
     </div>
   )

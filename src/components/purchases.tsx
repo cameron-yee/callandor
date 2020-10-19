@@ -9,7 +9,7 @@ const OVER: string = `
 `
 
 const UNDER: string = `
-  text-green-500
+  font-bold
 `
 
 const BUDGET: string = `
@@ -18,8 +18,8 @@ const BUDGET: string = `
 `
 
 type RemainingProps = {
-  filter: string,
-  filterType: 'category' | 'subCategory'
+  filter?: string,
+  filterType?: 'category' | 'subCategory'
   month: number,
   year: number
 }
@@ -40,7 +40,7 @@ const Purchases = ({
     : formatClassList(OVER)
 
   return (
-    <p>Purchases: <span className={formattedPurchases}>${totalMonthlyPurchases}</span> out of <span className={formattedBudget}>${totalBudget}</span></p>
+    <p>Purchases: <span className={formattedPurchases}>${totalMonthlyPurchases.toFixed(2)}</span> out of <span className={formattedBudget}>${totalBudget.toFixed(2)}</span></p>
   )
 }
 

@@ -4,32 +4,35 @@ import { formatClassList } from '../utils'
 
 import Remaining from './remaining'
 import Pace from './pace'
-import Purchases from './purchases'
 
-const HEADER: string = `
-  my-3
-  text-xl
-  tracking-widest
-  font-main
-  font-semibold
-  text-gray-200
+const WRAPPER: string = `
+  bg-gray-700
+  mt-3
+  p-4
+  rounded
 `
+
+type DashboardCategoryProps = {
+  filter: string,
+  filterType: 'category' | 'subCategory',
+  month: number,
+  year: number
+}
 
 const DashboardCategory = ({
   filter,
   filterType,
   month,
   year
-}) => {
+}: DashboardCategoryProps) => {
   const date: Date = new Date()
   const currentMonth: number = date.getMonth()
 
-  const formattedHeader: string = formatClassList(HEADER)
+  const formattedWrapper: string = formatClassList(WRAPPER)
 
   return (
-    <div className='bg-gray-700 rounded p-4 mt-3'>
-      <h4 className={formattedHeader}>{filter}</h4>
-      <Purchases filter={filter} filterType={filterType} month={month} year={year} />
+    <div className={formattedWrapper}>
+      <h3>{filter}</h3>
       <Remaining filter={filter} filterType={filterType} month={month} year={year} />
       {currentMonth + 1 === month &&
         <Pace filter={filter} filterType={filterType} />

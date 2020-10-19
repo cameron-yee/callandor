@@ -12,6 +12,7 @@ const TEXT: string = `
 
 const LABEL: string = `
   ${TEXT}
+  mt-2
   text-gray-300
 `
 

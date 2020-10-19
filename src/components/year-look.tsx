@@ -8,8 +8,12 @@ import { formatClassList } from '../utils'
 
 import Select from './select'
 
-import { Category, CategoryFilterType, SubCategory } from '../types'
+import { Category, CategoryFilterType } from '../types'
 
+
+const MONTHS: string = `
+  mt-3
+`
 
 const TEXT: string = `
   font-secondary
@@ -18,17 +22,31 @@ const TEXT: string = `
 
 const LABEL: string = `
   ${TEXT}
+  mt-1
   text-gray-200
 `
 
 const POSITIVE: string = `
   ${TEXT}
-  text-green-400
+  font-semibold
 `
 
 const NEGATIVE: string = `
   ${TEXT}
   text-red-400
+`
+
+const ROUNDED_L: string = `
+  rounded-l
+`
+
+const ROUNDED_R: string = `
+  rounded-r
+`
+
+const WRAPPER: string = `
+  mt-3
+  w-full
 `
 
 const YearLook = ({ year }: { year: number }) => {
@@ -69,6 +87,10 @@ const YearLook = ({ year }: { year: number }) => {
   const formattedNegative: string = formatClassList(NEGATIVE)
   const formattedPositive: string = formatClassList(POSITIVE)
   const formattedLabel: string = formatClassList(LABEL)
+  const formattedRoundedL: string = formatClassList(ROUNDED_L)
+  const formattedRoundedR: string = formatClassList(ROUNDED_R)
+  const formattedMonths: string = formatClassList(MONTHS)
+  const formattedWrapper: string = formatClassList(WRAPPER)
 
 
   useEffect(() => {
@@ -107,15 +129,17 @@ const YearLook = ({ year }: { year: number }) => {
   }, [selectedCategory])
 
   return (
-    <div className='w-full'>
-      <h2 className="my-3 text-2xl tracking-widest font-main font-semibold text-gray-200">{year} Look (+/- Budget)</h2>
+    <div className={formattedWrapper}>
+      <h2>{year} Look <wbr />(+/- Budget)</h2>
       <div>
         <Select
+          className={formattedRoundedL}
           value={selectedCategory}
           setValue={setSelectedCategory}
           options={[...CATEGORIES.map((category: Category) => category.name), '-----']}
         />
         <Select
+          className={formattedRoundedR}
           value={selectedSubCategory}
           setValue={setSelectedSubCategory}
           options={
@@ -124,7 +148,7 @@ const YearLook = ({ year }: { year: number }) => {
               : subCategories
           }
         />
-        <div>
+        <div className={formattedMonths}>
           <div className={formattedLabel}>January: <span className={monthOneNet >= 0 ? formattedPositive : formattedNegative}>${monthOneNet.toFixed(2)}</span></div>
           <div className={formattedLabel}>February: <span className={monthTwoNet >= 0 ? formattedPositive : formattedNegative}>${monthTwoNet.toFixed(2)}</span></div>
           <div className={formattedLabel}>March: <span className={monthThreeNet >= 0 ? formattedPositive : formattedNegative}>${monthThreeNet.toFixed(2)}</span></div>

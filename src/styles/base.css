@@ -6,15 +6,15 @@ p {
 }
 
 h1 {
-  @apply my-3 text-2xl tracking-widest font-main font-semibold text-gray-200
+  @apply mt-3 mb-2 text-3xl tracking-widest font-main font-semibold text-gray-200
 }
 
 h2 {
-  @apply my-3 text-2xl tracking-widest font-main font-semibold text-gray-200
+  @apply mt-3 mb-2 text-2xl tracking-widest font-main font-semibold text-teal-400
 }
 
 h3 {
-  @apply  my-3 text-xl tracking-widest font-main font-semibold text-gray-200
+  @apply  mt-3 mb-2 text-xl tracking-widest font-main font-semibold text-gray-200
 }
 
 @tailwind utilities;
