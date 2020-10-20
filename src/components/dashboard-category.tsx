@@ -1,6 +1,9 @@
 import React from 'react'
 
+import { useBudget } from '../hooks'
+
 import { formatClassList } from '../utils'
+
 
 import Remaining from './remaining'
 import Pace from './pace'
@@ -28,11 +31,14 @@ const DashboardCategory = ({
   const date: Date = new Date()
   const currentMonth: number = date.getMonth()
 
+  const budget: number = useBudget({ filter: filter, filterType: filterType })
+
   const formattedWrapper: string = formatClassList(WRAPPER)
 
   return (
     <div className={formattedWrapper}>
       <h3>{filter}</h3>
+      <p>Budget: ${budget.toFixed(2)}</p>
       <Remaining filter={filter} filterType={filterType} month={month} year={year} />
       {currentMonth + 1 === month &&
         <Pace filter={filter} filterType={filterType} />

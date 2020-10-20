@@ -44,6 +44,9 @@ const FixedItems = () => {
       ? formatClassList(SAME)
       : formatClassList(DIFFERENT)
 
+  const zeroCheck: number = monthlyNetIncome - totalBudget
+  const isZero: boolean = (Math.abs(zeroCheck)).toFixed(2) === '0.00'
+
   return (
     <div className={formattedFull}>
       <h2>Fixed Items</h2>
@@ -52,7 +55,12 @@ const FixedItems = () => {
         <p>Monthly Net Income: <span className={formattedBold}>${monthlyNetIncome.toFixed(2)}</span></p>
         <p>Monthly Budget: <span className={formattedBold}>${totalBudget.toFixed(2)}</span></p>
         <div className={formattedDivider} />
-        <p>Zero Check: <span className={formattedZeroCheck}>${(monthlyNetIncome - totalBudget).toFixed(2)}</span></p>
+        <p>Zero Check:&nbsp;
+          <span className={formattedZeroCheck}>
+            {!isZero && zeroCheck < 0 && <>&ndash;&nbsp;$(Math.abs(zeroCheck)).toFixed(2)</>}
+            {isZero && '$0'}
+          </span>
+        </p>
       </div>
 
     </div>

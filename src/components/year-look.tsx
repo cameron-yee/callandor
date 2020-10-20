@@ -11,6 +11,11 @@ import Select from './select'
 import { Category, CategoryFilterType } from '../types'
 
 
+const CATEGORY: string = `
+  rounded
+  w-full
+`
+
 const MONTHS: string = `
   mt-3
 `
@@ -36,12 +41,10 @@ const NEGATIVE: string = `
   text-red-400
 `
 
-const ROUNDED_L: string = `
-  rounded-l
-`
-
-const ROUNDED_R: string = `
-  rounded-r
+const SUB_CATEGORY: string = `
+  mt-2
+  rounded
+  w-full
 `
 
 const WRAPPER: string = `
@@ -84,14 +87,13 @@ const YearLook = ({ year }: { year: number }) => {
   const monthElevenNet: number = budget - monthElevenPurchases
   const monthTwelveNet: number = budget - monthTwelvePurchases
 
+  const formattedCategory: string = formatClassList(CATEGORY)
+  const formattedLabel: string = formatClassList(LABEL)
+  const formattedMonths: string = formatClassList(MONTHS)
   const formattedNegative: string = formatClassList(NEGATIVE)
   const formattedPositive: string = formatClassList(POSITIVE)
-  const formattedLabel: string = formatClassList(LABEL)
-  const formattedRoundedL: string = formatClassList(ROUNDED_L)
-  const formattedRoundedR: string = formatClassList(ROUNDED_R)
-  const formattedMonths: string = formatClassList(MONTHS)
+  const formattedSubCategory: string = formatClassList(SUB_CATEGORY)
   const formattedWrapper: string = formatClassList(WRAPPER)
-
 
   useEffect(() => {
     if (selectedCategory === '-----' && selectedSubCategory === '-----') {
@@ -116,7 +118,7 @@ const YearLook = ({ year }: { year: number }) => {
       return
     }
 
-    const subs: string[] = []
+    let subs: string[] = []
 
     for (let i = 0; i < CATEGORIES.length; i++) {
       if (CATEGORIES[i].name === selectedCategory) {
@@ -126,6 +128,7 @@ const YearLook = ({ year }: { year: number }) => {
       }
     }
     setSubCategories([...subs, '-----'])
+    setSelectedSubCategory('-----')
   }, [selectedCategory])
 
   return (
@@ -133,13 +136,13 @@ const YearLook = ({ year }: { year: number }) => {
       <h2>{year} Look <wbr />(+/- Budget)</h2>
       <div>
         <Select
-          className={formattedRoundedL}
+          className={formattedCategory}
           value={selectedCategory}
           setValue={setSelectedCategory}
           options={[...CATEGORIES.map((category: Category) => category.name), '-----']}
         />
         <Select
-          className={formattedRoundedR}
+          className={formattedSubCategory}
           value={selectedSubCategory}
           setValue={setSelectedSubCategory}
           options={
@@ -149,18 +152,78 @@ const YearLook = ({ year }: { year: number }) => {
           }
         />
         <div className={formattedMonths}>
-          <div className={formattedLabel}>January: <span className={monthOneNet >= 0 ? formattedPositive : formattedNegative}>${monthOneNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>February: <span className={monthTwoNet >= 0 ? formattedPositive : formattedNegative}>${monthTwoNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>March: <span className={monthThreeNet >= 0 ? formattedPositive : formattedNegative}>${monthThreeNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>April: <span className={monthFourNet >= 0 ? formattedPositive : formattedNegative}>${monthFourNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>May: <span className={monthFiveNet >= 0 ? formattedPositive : formattedNegative}>${monthFiveNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>June: <span className={monthSixNet >= 0 ? formattedPositive : formattedNegative}>${monthSixNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>July: <span className={monthSevenNet >= 0 ? formattedPositive : formattedNegative}>${monthSevenNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>August: <span className={monthEightNet >= 0 ? formattedPositive : formattedNegative}>${monthEightNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>September: <span className={monthNineNet >= 0 ? formattedPositive : formattedNegative}>${monthNineNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>October: <span className={monthTenNet >= 0 ? formattedPositive : formattedNegative}>${monthTenNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>November: <span className={monthElevenNet >= 0 ? formattedPositive : formattedNegative}>${monthElevenNet.toFixed(2)}</span></div>
-          <div className={formattedLabel}>December: <span className={monthTwelveNet >= 0 ? formattedPositive : formattedNegative}>${monthTwelveNet.toFixed(2)}</span></div>
+          <div className={formattedLabel}>
+            January:&nbsp;
+            <span className={monthOneNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthOneNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthOneNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            February:&nbsp;
+            <span className={monthTwoNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthTwoNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthTwoNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            March:&nbsp;
+            <span className={monthThreeNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthThreeNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthThreeNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            April:&nbsp;
+            <span className={monthFourNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthFourNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthFourNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            May:&nbsp;
+            <span className={monthFiveNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthFiveNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthFiveNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            June:&nbsp;
+            <span className={monthSixNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthSixNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthSixNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            July:&nbsp;
+            <span className={monthSevenNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthSevenNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthSevenNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            August:&nbsp;
+            <span className={monthEightNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthEightNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthEightNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            September:&nbsp;
+            <span className={monthNineNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthNineNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthNineNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            October:&nbsp;
+              <span className={monthTenNet >= 0 ? formattedPositive : formattedNegative}>
+                {monthTenNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthTenNet)).toFixed(2)}
+              </span>
+          </div>
+          <div className={formattedLabel}>
+            November:&nbsp;
+            <span className={monthElevenNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthElevenNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthElevenNet)).toFixed(2)}
+            </span>
+          </div>
+          <div className={formattedLabel}>
+            December:&nbsp;
+            <span className={monthTwelveNet >= 0 ? formattedPositive : formattedNegative}>
+              {monthTwelveNet < 0 && <>&ndash;&nbsp;</>}${(Math.abs(monthTwelveNet)).toFixed(2)}
+            </span>
+          </div>
         </div>
       </div>
     </div>

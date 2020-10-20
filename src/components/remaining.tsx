@@ -98,15 +98,15 @@ const Remaining = ({
   return (
     <div className={formattedWrapper}>
       {totalRemaining >= 0 &&
-        <p>Budget remaining: ${totalRemaining.toFixed(2)} remaining</p>
+        <p>Remaining: ${totalRemaining.toFixed(2)}</p>
       }
       {totalRemaining < 0 &&
-        <p>OVER BUDGET BY ${totalRemaining.toFixed(2)}</p>
+        <p>OVER BUDGET BY ${Math.abs(totalRemaining).toFixed(2)}</p>
       }
       <div className={formattedChart}>
         <div className={formattedRemainingBg} style={{ width: `${totalRemainingPercentage}%`}} />
       </div>
-      <p className={formattedLabel}><span className={formattedRemaining}>{totalRemainingPercentage.toFixed(2)}%</span> remaining</p>
+      <p className={formattedLabel}><span className={formattedRemaining}>{totalRemainingPercentage.toFixed(0)}%</span> remaining</p>
     </div>
   )
 }
