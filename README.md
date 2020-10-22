@@ -1,4 +1,4 @@
-# Callandor
+# [Callandor](https://callandor.netlify.app)
 
 ## Development
 
@@ -8,6 +8,8 @@ $ yarn start
 ```
 
 ## Usage
+
+The password on the example site is `password`.
 
 Define categories and sub-categories in `constants.ts`. The data structure
 must stay the same. Each category object has a name property and a list of
@@ -56,5 +58,8 @@ any other static site deployer.
 
 ### Security
 
-I recommend setting up Netlify Identity to protect your site behind password protection.
+I recommend setting up Netlify Access Control to protect your site behind
+password protection if you have a paid version of Netlify. Otherwise,
+basic password protection is provided using [@mkitio/gatsby-theme-password-protect/](https://www.gatsbyjs.com/plugins/@mkitio/gatsby-theme-password-protect/).
+The password can be set in `gatsby-config.js`.
 
