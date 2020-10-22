@@ -33,6 +33,12 @@ and `src/data/purchases.json`. The data format is used to render components, so
 make sure to keep all the field names the same. The dashboard information is
 based on data in these three files.
 
+For batch adding purchases, I recommend using [excel2json-3](https://pypi.org/project/excel2json-3/).
+In the Excel file, create columns labeled `date`, `amount`, `category`,
+`subCategory`, and `notes`. Set the date column to type `text` and the amount
+column type to `number`. Once you convert the file, you can append the objects
+directly to the `purchases.json` file.
+
 ### Options
 
 - categories: list of category names to display information about on the dashoard
@@ -51,3 +57,4 @@ any other static site deployer.
 ### Security
 
 I recommend setting up Netlify Identity to protect your site behind password protection.
+
