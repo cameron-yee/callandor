@@ -30,12 +30,6 @@ module.exports = {
         icon: 'src/images/favicon.png'
       }
     },
-    {
-      resolve: '@mkitio/gatsby-theme-password-protect',
-      options: {
-        password: 'password'
-      }
-    },
     `gatsby-plugin-postcss`,
     `gatsby-plugin-offline`
   ]

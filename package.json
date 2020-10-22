@@ -14,7 +14,6 @@
     "build:gatsby": "gatsby build"
   },
   "dependencies": {
-    "@mkitio/gatsby-theme-password-protect": "^2.1.2",
     "fontsource-turret-road": "^3.0.3",
     "fontsource-ubuntu": "^3.0.9",
     "gatsby": "^2.24.67",
