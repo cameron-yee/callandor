@@ -6,12 +6,14 @@
   "license": "0BSD",
   "scripts": {
     "develop": "npm run build:tailwind && gatsby develop",
+    "encrypt": "npx staticrypt public/index.html password -o public/index.html",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "run-p start:**",
     "start:app": "yarn develop",
     "build": "run-s build:**",
     "build:tailwind": "postcss src/styles/base.css -o src/styles/tailwind.css",
-    "build:gatsby": "gatsby build"
+    "build:gatsby": "gatsby build",
+    "deploy": "npm run build && npm run encrypt"
   },
   "dependencies": {
     "fontsource-turret-road": "^3.0.3",
@@ -22,9 +24,11 @@
     "gatsby-plugin-postcss": "^3.0.3",
     "gatsby-source-filesystem": "^2.3.34",
     "gatsby-transformer-json": "^2.4.14",
+    "npx": "^10.2.2",
     "postcss": "^8.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "staticrypt": "^1.3.2",
     "tailwindcss": "^1.9.3"
   },
   "devDependencies": {

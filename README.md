@@ -2,6 +2,8 @@
 
 ## Development
 
+The password for the example site is `password`.
+
 ```
 $ git clone https://github.com/cameron-yee/callandor
 $ yarn start
@@ -57,5 +59,12 @@ any other static site deployer.
 ### Security
 
 I recommend setting up Netlify Access Control to protect your site behind
-password protection if you have a paid version of Netlify.
+password protection if you have a paid version of Netlify. This will provide
+server level security.
+
+As a hack, I'm using [StatiCrypt](https://github.com/robinmoisson/staticrypt)
+to encrypt/decrypt a password in the browser. This is easy to get around, but it will
+stop people who just happen to stumble across your site. This password is set in the
+`encrypt` script in `package.json`. This will only work at all if you keep your
+fork private.
 
