@@ -23,10 +23,12 @@ module.exports = {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Callandor',
+        short_name: 'Callandor',
         description: 'Static budget dashboard',
         background_color: '#fff',
         display: 'minimal-ui',
         theme_color: '#fff',
+        start_url: '/',
         icon: 'src/images/favicon.png'
       }
     },
