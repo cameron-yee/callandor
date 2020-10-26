@@ -25,11 +25,11 @@ module.exports = {
         name: 'Callandor',
         short_name: 'Callandor',
         description: 'Static budget dashboard',
-        background_color: '#fff',
+        background_color: '#2a4365',
         display: 'minimal-ui',
         theme_color: '#fff',
         start_url: '/',
-        icon: 'src/images/favicon.png'
+        icon: 'src/images/favicon.svg'
       }
     },
     `gatsby-plugin-postcss`,
