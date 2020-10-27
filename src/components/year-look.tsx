@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { useBudget, useMonthlyPurchases, useRecurring } from '../hooks'
+import { useBudget, useMonthlyPurchases, useRecurringAmount } from '../hooks'
 
 import { CATEGORIES } from '../constants'
 
@@ -8,7 +8,7 @@ import { formatClassList } from '../utils'
 
 import Select from './select'
 
-import { Category, CategoryFilterType, RecurringItem } from '../types'
+import { Category, CategoryFilterType } from '../types'
 
 
 const CATEGORY: string = `
@@ -52,10 +52,6 @@ const WRAPPER: string = `
   w-full
 `
 
-type Edge = {
-  node: RecurringItem
-}
-
 type YearLookProps = {
   recurring?: boolean,
   year: number
@@ -86,15 +82,7 @@ const YearLook = ({
 
   const budget: number = useBudget({filter: filter, filterType: filterType})
 
-  const recurringItems: Edge[] = useRecurring({})
-
-  const monthlyRecurringAmount: number = recurringItems.map((item: Edge) => {
-    if (item.node.frequency === 'yearly') {
-      return item.node.amount / 12
-    }
-
-    return item.node.amount
-  }).reduce((a: number, b: number) => a + b, 0)
+  const monthlyRecurringAmount: number = useRecurringAmount({})
 
   const monthlyNetIncomeMinusRecurring: number = recurring
     ? budget - monthlyRecurringAmount

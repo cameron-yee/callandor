@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { RecurringItem } from '../types'
 import { formatClassList } from '../utils'
-import { useAnnualNetIncome, useBudget, useRecurring } from '../hooks'
+import { useAnnualNetIncome, useBudget, useRecurringAmount } from '../hooks'
 
 const BOLD: string = `
   font-bold
@@ -30,10 +29,6 @@ const DIFFERENT: string = `
   text-yellow-400
 `
 
-type Edge = {
-  node: RecurringItem
-}
-
 type FixedItemsProps = {
   recurring?: boolean
 }
@@ -41,15 +36,8 @@ type FixedItemsProps = {
 const FixedItems = ({recurring}: FixedItemsProps) => {
   const annualNetIncome: number = useAnnualNetIncome({})
   const monthlyNetIncome: number = annualNetIncome / 12
-  const recurringItems: Edge[] = useRecurring({})
 
-  const monthlyRecurringAmount: number = recurringItems.map((item: Edge) => {
-    if (item.node.frequency === 'yearly') {
-      return item.node.amount / 12
-    }
-
-    return item.node.amount
-  }).reduce((a: number, b: number) => a + b, 0)
+  const monthlyRecurringAmount: number = useRecurringAmount({})
 
   const monthlyNetIncomeMinusRecurring: number = recurring
     ? monthlyNetIncome - monthlyRecurringAmount

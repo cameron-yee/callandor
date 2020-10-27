@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useBudget, useMonthlyPurchases } from '../hooks'
+import { useBudget, useMonthlyPurchases, useRecurringAmount } from '../hooks'
 
 import { formatClassList, joinStrings } from '../utils'
 
@@ -26,12 +26,14 @@ const UNDER: string = `
 
 type RemainingProps = {
   filter: string,
-  filterType: 'category' | 'subCategory'
+  filterType: 'category' | 'subCategory',
+  recurring?: boolean
 }
 
 const Pace = ({
   filter,
   filterType,
+  recurring=false
 }: RemainingProps) => {
   const formattedLabel: string = formatClassList(LABEL)
 
@@ -44,10 +46,17 @@ const Pace = ({
   const daysInMonth: number = new Date(fullYear, currentMonth + 1, 0).getDate()
 
   const totalMonthlyPurchases: number = useMonthlyPurchases({month: currentMonth+ 1, year: fullYear, filter: filter, filterType: filterType})
+
   const budget: number = useBudget({ filter: filter, filterType: filterType })
+  const monthlyRecurringAmount: number = useRecurringAmount({})
+
+  const monthlyBudget: number = recurring
+    ? budget - monthlyRecurringAmount
+    : budget
+
   const pace: number = totalMonthlyPurchases / currentDay * daysInMonth
 
-  const formattedPace = pace <= budget
+  const formattedPace = pace <= monthlyBudget
     ? formatClassList(joinStrings(' ', TEXT, UNDER))
     : formatClassList(joinStrings(' ', TEXT, OVER))
 

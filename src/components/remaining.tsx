@@ -1,8 +1,7 @@
 import React from 'react'
-import { useBudget, useMonthlyPurchases, useRecurring } from '../hooks'
+import { useBudget, useMonthlyPurchases, useRecurringAmount } from '../hooks'
 
 import { formatClassList, joinStrings } from '../utils'
-import { RecurringItem } from '../types'
 
 const CHART: string = `
   bg-blue-900
@@ -61,10 +60,6 @@ const WRAPPER: string = `
   w-full
 `
 
-type Edge = {
-  node: RecurringItem
-}
-
 type RemainingProps = {
   filter?: string,
   filterType?: 'category' | 'subCategory'
@@ -84,15 +79,8 @@ const Remaining = ({
 
   const totalBudget: number = useBudget({filter: filter, filterType: filterType})
   const totalMonthlyPurchases: number = useMonthlyPurchases({month:month, year: year, filter: filter, filterType: filterType})
-  const recurringItems: Edge[] = useRecurring({})
 
-  const monthlyRecurringAmount: number = recurringItems.map((item: Edge) => {
-    if (item.node.frequency === 'yearly') {
-      return item.node.amount / 12
-    }
-
-    return item.node.amount
-  }).reduce((a: number, b: number) => a + b, 0)
+  const monthlyRecurringAmount: number = useRecurringAmount({})
 
   const monthlyNetIncomeMinusRecurring: number = recurring
     ? totalBudget - monthlyRecurringAmount
