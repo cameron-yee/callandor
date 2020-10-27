@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { useBudget, useMonthlyPurchases } from '../hooks'
+import { useBudget, useMonthlyPurchases, useRecurring } from '../hooks'
 
 import { CATEGORIES } from '../constants'
 
@@ -8,7 +8,7 @@ import { formatClassList } from '../utils'
 
 import Select from './select'
 
-import { Category, CategoryFilterType } from '../types'
+import { Category, CategoryFilterType, RecurringItem } from '../types'
 
 
 const CATEGORY: string = `
@@ -52,7 +52,19 @@ const WRAPPER: string = `
   w-full
 `
 
-const YearLook = ({ year }: { year: number }) => {
+type Edge = {
+  node: RecurringItem
+}
+
+type YearLookProps = {
+  recurring?: boolean,
+  year: number
+}
+
+const YearLook = ({
+  recurring=false,
+  year
+}: YearLookProps) => {
   const [filter, setFilter] = useState<string>()
   const [filterType, setFilterType] = useState<CategoryFilterType>('-----')
   const [selectedCategory, setSelectedCategory] = useState<string>('-----')
@@ -74,18 +86,32 @@ const YearLook = ({ year }: { year: number }) => {
 
   const budget: number = useBudget({filter: filter, filterType: filterType})
 
-  const monthOneNet: number = budget - monthOnePurchases
-  const monthTwoNet: number = budget - monthTwoPurchases
-  const monthThreeNet: number = budget - monthThreePurchases
-  const monthFourNet: number = budget - monthFourPurchases
-  const monthFiveNet: number = budget - monthFivePurchases
-  const monthSixNet: number = budget - monthSixPurchases
-  const monthSevenNet: number = budget - monthSevenPurchases
-  const monthEightNet: number = budget - monthEightPurchases
-  const monthNineNet: number = budget - monthNinePurchases
-  const monthTenNet: number = budget - monthTenPurchases
-  const monthElevenNet: number = budget - monthElevenPurchases
-  const monthTwelveNet: number = budget - monthTwelvePurchases
+  const recurringItems: Edge[] = useRecurring({})
+
+  const monthlyRecurringAmount: number = recurringItems.map((item: Edge) => {
+    if (item.node.frequency === 'yearly') {
+      return item.node.amount / 12
+    }
+
+    return item.node.amount
+  }).reduce((a: number, b: number) => a + b, 0)
+
+  const monthlyNetIncomeMinusRecurring: number = recurring
+    ? budget - monthlyRecurringAmount
+    : budget
+
+  const monthOneNet: number = monthlyNetIncomeMinusRecurring - monthOnePurchases
+  const monthTwoNet: number = monthlyNetIncomeMinusRecurring - monthTwoPurchases
+  const monthThreeNet: number = monthlyNetIncomeMinusRecurring - monthThreePurchases
+  const monthFourNet: number = monthlyNetIncomeMinusRecurring - monthFourPurchases
+  const monthFiveNet: number = monthlyNetIncomeMinusRecurring - monthFivePurchases
+  const monthSixNet: number = monthlyNetIncomeMinusRecurring - monthSixPurchases
+  const monthSevenNet: number = monthlyNetIncomeMinusRecurring - monthSevenPurchases
+  const monthEightNet: number = monthlyNetIncomeMinusRecurring - monthEightPurchases
+  const monthNineNet: number = monthlyNetIncomeMinusRecurring - monthNinePurchases
+  const monthTenNet: number = monthlyNetIncomeMinusRecurring - monthTenPurchases
+  const monthElevenNet: number = monthlyNetIncomeMinusRecurring - monthElevenPurchases
+  const monthTwelveNet: number = monthlyNetIncomeMinusRecurring - monthTwelvePurchases
 
   const formattedCategory: string = formatClassList(CATEGORY)
   const formattedLabel: string = formatClassList(LABEL)

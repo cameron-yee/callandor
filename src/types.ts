@@ -21,6 +21,18 @@ export type BudgetItem = {
   monthlyBudget: number
 }
 
+export type Frequency =
+ | 'monthly'
+ | 'yearly'
+
+export type RecurringItem = {
+  amount: number,
+  category: Category,
+  frequency: Frequency,
+  notes: string,
+  subCategory: SubCategory
+}
+
 export type Income = {
   name: string,
   payPeriodNetIncome: number,

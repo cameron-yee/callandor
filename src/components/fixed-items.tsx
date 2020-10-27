@@ -1,7 +1,8 @@
 import React from 'react'
 
+import { RecurringItem } from '../types'
 import { formatClassList } from '../utils'
-import { useAnnualNetIncome, useBudget } from '../hooks'
+import { useAnnualNetIncome, useBudget, useRecurring } from '../hooks'
 
 const BOLD: string = `
   font-bold
@@ -29,9 +30,31 @@ const DIFFERENT: string = `
   text-yellow-400
 `
 
-const FixedItems = () => {
+type Edge = {
+  node: RecurringItem
+}
+
+type FixedItemsProps = {
+  recurring?: boolean
+}
+
+const FixedItems = ({recurring}: FixedItemsProps) => {
   const annualNetIncome: number = useAnnualNetIncome({})
   const monthlyNetIncome: number = annualNetIncome / 12
+  const recurringItems: Edge[] = useRecurring({})
+
+  const monthlyRecurringAmount: number = recurringItems.map((item: Edge) => {
+    if (item.node.frequency === 'yearly') {
+      return item.node.amount / 12
+    }
+
+    return item.node.amount
+  }).reduce((a: number, b: number) => a + b, 0)
+
+  const monthlyNetIncomeMinusRecurring: number = recurring
+    ? monthlyNetIncome - monthlyRecurringAmount
+    : monthlyNetIncome
+
   const totalBudget: number = useBudget({})
 
   const formattedBold: string = formatClassList(BOLD)
@@ -45,6 +68,7 @@ const FixedItems = () => {
       : formatClassList(DIFFERENT)
 
   const zeroCheck: number = monthlyNetIncome - totalBudget
+
   const isZero: boolean = (Math.abs(zeroCheck)).toFixed(2) === '0.00'
 
   return (
@@ -53,11 +77,17 @@ const FixedItems = () => {
       <div>
         <p>Annual Net Income: <span className={formattedBold}>${annualNetIncome.toFixed(2)}</span></p>
         <p>Monthly Net Income: <span className={formattedBold}>${monthlyNetIncome.toFixed(2)}</span></p>
+        {recurring &&
+          <p>Monthly Recurring Amount: <span className={formattedBold}>${monthlyRecurringAmount}</span></p>
+        }
         <p>Monthly Budget: <span className={formattedBold}>${totalBudget.toFixed(2)}</span></p>
+        {recurring &&
+          <p>Minus Monthly Recurring: <span className={formattedBold}>${monthlyNetIncomeMinusRecurring.toFixed(2)}</span></p>
+        }
         <div className={formattedDivider} />
         <p>Zero Check:&nbsp;
           <span className={formattedZeroCheck}>
-            {!isZero && zeroCheck < 0 && <>&ndash;&nbsp;$(Math.abs(zeroCheck)).toFixed(2)</>}
+            {!isZero && zeroCheck < 0 && <>&ndash;&nbsp;${(Math.abs(zeroCheck)).toFixed(2)}</>}
             {isZero && '$0'}
           </span>
         </p>

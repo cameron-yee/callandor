@@ -9,6 +9,7 @@ const Index = () => {
       <Dashboard
         categories={['social']}
         fixedItems={true}
+        recurring={true}
         subCategories={['groceries', 'coffee']}
         yearLook={true}
       />

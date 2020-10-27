@@ -1,0 +1,30 @@
+[
+  {
+    "amount": 600,
+    "category": "livingExpenses",
+    "subCategory": "rent",
+    "notes": "",
+    "frequency": "monthly"
+  },
+  {
+    "amount": 100,
+    "category": "transferOut",
+    "subCategory": "saving",
+    "notes": "",
+    "frequency": "monthly"
+  },
+  {
+    "amount": 50,
+    "category": "transferOut",
+    "subCategory": "giving",
+    "notes": "",
+    "frequency": "monthly"
+  },
+  {
+    "amount": 300,
+    "category": "car",
+    "subCategory": "insurance",
+    "notes": "",
+    "frequency": "yearly"
+  }
+]

@@ -21,7 +21,8 @@ export const CATEGORIES: Category[] = [
     subCategories: [
       { name: 'gas' },
       { name: 'monthlyBills' },
-      { name: 'phone' }
+      { name: 'phone' },
+      { name: 'rent' }
     ]
   },
   {
@@ -47,7 +48,7 @@ export const CATEGORIES: Category[] = [
   {
     name: 'transferOut',
     subCategories: [
-      { name: 'savings' },
+      { name: 'saving' },
       { name: 'giving' }
     ]
   },

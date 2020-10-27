@@ -31,7 +31,7 @@ Edit `pages/index.tsx` to customize what shows up on the dashboard.
 ### Data Entry
 
 To enter data, add objects to `src/data/budget.json`, `src/data/incomes.json`,
-and `src/data/purchases.json`. The data format is used to render components, so
+ `src/data/purchases.json`, and optionally `src/data/recurring.json`. The data format is used to render components, so
 make sure to keep all the field names the same. The dashboard information is
 based on data in these three files.
 
@@ -41,11 +41,16 @@ In the Excel file, create columns labeled `date`, `amount`, `category`,
 column type to `number`. Once you convert the file, you can append the objects
 directly to the `purchases.json` file.
 
+**NOTE**: Recurring items can be duplicated in `purchases.json` so be careful
+if you do not want these to be double counted.
+
 ### Options
 
 - categories: list of category names to display information about on the dashoard
 - subCategories: list of sub-category names to display information about on the dashoard
 - fixedItems (true/false): include fixed information on the dashboard
+- recurring (true/false): include recurring items in monthly budget
+  * If true, set up recurring items in `src/data/recurring.json`.
 - yearLook (true/false): include net information for months of the selected year on the dashboard
 
 

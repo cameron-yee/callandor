@@ -6,6 +6,7 @@ import { formatClassList } from '../utils'
 import DashboardCategory from './dashboard-category'
 import FixedItems from './fixed-items'
 import Purchases from './purchases'
+import Recurring from './recurring'
 import Remaining from './remaining'
 import Select from './select'
 import YearLook from './year-look'
@@ -49,6 +50,7 @@ const WRAPPER: string = `
 
 type DashboardProps = {
   categories?: string[],
+  recurring?: boolean,
   subCategories?: string[],
   yearLook?: boolean,
   fixedItems?: boolean
@@ -56,6 +58,7 @@ type DashboardProps = {
 
 const Dashboard = ({
   categories,
+  recurring=false,
   subCategories,
   yearLook,
   fixedItems
@@ -104,12 +107,15 @@ const Dashboard = ({
       <div className={formattedSeparator} />
 
       {fixedItems &&
-        <FixedItems />
+        <FixedItems recurring={recurring} />
+      }
+      {recurring &&
+        <Recurring />
       }
       <div className={formattedItem}>
         <h2>{MONTHS[selectedMonth]} Items</h2>
-        <Purchases month={selectedMonth + 1} year={selectedYear + 2020} />
-        <Remaining month={selectedMonth + 1} year={selectedYear + 2020} />
+        <Purchases month={selectedMonth + 1} year={selectedYear + 2020} recurring={recurring} />
+        <Remaining month={selectedMonth + 1} year={selectedYear + 2020} recurring={recurring} />
       </div>
       {(categories || subCategories) &&
         <div className={formattedItem}>
@@ -144,7 +150,7 @@ const Dashboard = ({
       }
       {yearLook &&
         <div className={formattedItem}>
-          <YearLook year={selectedYear + 2020} />
+          <YearLook year={selectedYear + 2020} recurring={recurring} />
         </div>
       }
     </div>
