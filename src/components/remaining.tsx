@@ -42,6 +42,7 @@ const UNDER: string = `
 const UNDER_BG: string = `
   bg-green-500
   h-5
+  max-w-full
 `
 
 const CLOSE: string = `
